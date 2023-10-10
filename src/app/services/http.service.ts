@@ -33,10 +33,14 @@ export class HttpService {
 
     return forkJoin({
       gameInfoRequest,
+/*       gameTrailersRequest,
+      gameScreenshotsRequest */
     }).pipe(
       map((resp: any) => {
         return {
           ...resp['gameInfoRequest'],
+/*           screenshots: resp['gameScreenshotsRequest']?.results,
+          trailers: resp['gameTrailersRequest']?.results, */
         };
       })
     );
