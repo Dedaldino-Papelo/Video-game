@@ -21,7 +21,7 @@ export class HttpService {
     }
 
     return this.http.get<APIResponse<Game>>(getGames, {
-
+      params: params
     })
   }
 }
