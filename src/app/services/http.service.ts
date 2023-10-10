@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { APIResponse, Game } from '../interfaces/game';
 
@@ -9,10 +9,11 @@ import { APIResponse, Game } from '../interfaces/game';
 })
 export class HttpService {
   private baseAPI = environment.apiUrl
+  private apiKey = 'ba96dde96dd34487999fd4bfb8d66128'
 
   constructor(private http: HttpClient) {}
 
-  gameList(ordering: string, search?: string): Observable<APIResponse<Game>>{
+  gameList(ordering: string, search?: string): Observable<APIResponse<Game>> {
     let getGames = `${this.baseAPI}/games`
     let params = new HttpParams().set('ordering', ordering)
 
@@ -23,5 +24,21 @@ export class HttpService {
     return this.http.get<APIResponse<Game>>(getGames, {
       params: params
     })
+  }
+
+  getGameDetails(id: string): Observable<Game> {
+    const gameInfoRequest = this.http.get(`${this.baseAPI}/games/${id}?key=${this.apiKey}`);
+    const gameTrailersRequest = this.http.get(`${this.baseAPI}/games/${id}/movies`);
+    const gameScreenshotsRequest = this.http.get(`${this.baseAPI}/games/${id}/screenshots`);
+
+    return forkJoin({
+      gameInfoRequest,
+    }).pipe(
+      map((resp: any) => {
+        return {
+          ...resp['gameInfoRequest'],
+        };
+      })
+    );
   }
 }

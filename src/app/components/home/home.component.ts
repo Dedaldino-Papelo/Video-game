@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
       .gameList(sort, search)
       .subscribe((gameList: APIResponse<Game>) => {
         this.games = gameList.results
-        console.log(gameList)
     })
   }
 
