@@ -17,7 +17,7 @@
     </mat-form-field>
   </div>
 
-  <div class="games">  
+  <div class="games" *ngIf="games.length > 0; else loading">  
     <ng-container *ngFor="let game of games">
       <div class="game" (click)="openGameDetails(game.id)">
         <div class="game-thumb-container">
@@ -45,3 +45,7 @@
       </div>
     </ng-container>
   </div>
+
+  <ng-template #loading>
+    <app-spinner></app-spinner>
+  </ng-template>

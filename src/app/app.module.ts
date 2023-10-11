@@ -18,6 +18,8 @@ import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor'
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor';
 import { DetailsComponent } from './components/details/details.component';
 import { GameTabsComponent } from './components/game-tabs/game-tabs.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { GameTabsComponent } from './components/game-tabs/game-tabs.component';
     SearchBarComponent,
     HomeComponent,
     DetailsComponent,
-    GameTabsComponent
+    GameTabsComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,10 @@ import { GameTabsComponent } from './components/game-tabs/game-tabs.component';
     MatTabsModule,
     MatIconModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
+
+    
   ],
   providers: [
     { 
